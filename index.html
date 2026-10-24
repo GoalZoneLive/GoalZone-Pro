@@ -1,0 +1,472 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#090909">
+<title>GoalZone Pro</title>
+
+<style>
+:root {
+  --gold: #e6bd55;
+  --gold2: #b88a25;
+  --bg: #090909;
+  --panel: #151515;
+  --muted: #999;
+  --line: #292929;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: #f7f7f7;
+  font-family: Arial, sans-serif;
+  padding-bottom: 85px;
+}
+button, select { font: inherit; }
+button { cursor: pointer; }
+header {
+  padding: 20px 16px 14px;
+  background: linear-gradient(135deg,#171717,#090909);
+  border-bottom: 1px solid #39301b;
+}
+.top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.brand { display: flex; align-items: center; gap: 10px; }
+.logo {
+  width: 43px; height: 43px; border-radius: 13px;
+  display: grid; place-items: center;
+  background: linear-gradient(135deg,#f5d77c,#a77a19);
+  color: #111; font-size: 23px;
+}
+.brand h1 { font-size: 19px; margin: 0; letter-spacing: .5px; }
+.brand h1 span { color: var(--gold); }
+.brand small { display: block; color: #999; font-size: 10px; margin-top: 4px; }
+#language {
+  background: #1b1b1b; color: var(--gold);
+  border: 1px solid #514323; border-radius: 8px;
+  padding: 9px 5px; max-width: 112px;
+}
+.hero {
+  padding: 23px 17px; margin: 18px 0 15px;
+  border: 1px solid #4a3a1a; border-radius: 16px;
+  background: radial-gradient(ellipse at top right,#382b12 0%,#17140e 40%,#121212 80%);
+}
+.hero .eyebrow { color: var(--gold); font-size: 11px; letter-spacing: 2px; }
+.hero h2 { font-size: 25px; margin: 12px 0 8px; line-height: 1.4; }
+.hero p { color: #bbb; font-size: 13px; line-height: 1.7; margin: 0; }
+.stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 9px; }
+.stat {
+  background: #151515; border: 1px solid var(--line);
+  border-radius: 11px; padding: 13px 5px; text-align: center;
+}
+.stat strong { display: block; color: var(--gold); font-size: 21px; }
+.stat span { display: block; color: #999; font-size: 11px; margin-top: 6px; }
+main { padding: 16px; max-width: 720px; margin: auto; }
+.section-head {
+  display: flex; justify-content: space-between;
+  align-items: center; gap: 8px; margin: 20px 0 13px;
+}
+.section-head h2 { margin: 0; font-size: 18px; }
+.section-head small { color: #999; font-size: 11px; }
+.gold { color: var(--gold); }
+.pills { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px; }
+.pill {
+  flex: 0 0 auto; border: 1px solid #333; background: #171717;
+  color: #aaa; border-radius: 8px; padding: 9px 14px; font-size: 12px;
+}
+.pill.active { background: var(--gold); border-color: var(--gold); color: #111; font-weight: bold; }
+.match {
+  margin-top: 12px; padding: 15px;
+  background: linear-gradient(145deg,#191919,#111);
+  border: 1px solid #2e2e2e; border-radius: 13px;
+}
+.match-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.league { color: #aaa; font-size: 11px; }
+.status { color: var(--gold); background: #332911; padding: 5px 8px; border-radius: 5px; font-size: 10px; }
+.teams { display: grid; grid-template-columns: 1fr 65px 1fr; align-items: center; gap: 8px; padding: 20px 0 15px; }
+.team { text-align: center; min-width: 0; }
+.crest {
+  width: 43px; height: 43px; margin: 0 auto 9px;
+  border: 1px solid #48402d; background: #242019; border-radius: 50%;
+  display: grid; place-items: center; font-size: 21px;
+}
+.team-name { font-size: 12px; line-height: 1.5; font-weight: bold; }
+.score { text-align: center; font-size: 22px; font-weight: bold; color: var(--gold); }
+.score small { display: block; font-size: 10px; color: #999; font-weight: normal; margin-top: 5px; }
+.match-bottom { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #292929; padding-top: 11px; gap: 8px; }
+.match-bottom small { color: #999; font-size: 10px; }
+.fav-btn { border: 0; background: transparent; color: #888; font-size: 20px; padding: 2px 5px; }
+.fav-btn.saved { color: var(--gold); }
+.panel {
+  background: #141414; border: 1px solid #2c2c2c;
+  border-radius: 12px; overflow: hidden; margin-top: 12px;
+}
+.table-wrap { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; min-width: 340px; text-align: center; font-size: 12px; }
+th { color: var(--gold); background: #201c13; font-weight: bold; }
+th, td { padding: 13px 8px; border-bottom: 1px solid #292929; }
+td:first-child, th:first-child { text-align: start; padding-inline-start: 13px; }
+tr:last-child td { border-bottom: 0; }
+.team-cell { font-weight: bold; white-space: nowrap; }
+.rank { color: #999; margin-inline-end: 8px; }
+.points { color: var(--gold); font-weight: bold; }
+.empty { text-align: center; padding: 35px 15px; color: #999; }
+.empty div { font-size: 35px; margin-bottom: 12px; }
+footer { text-align: center; padding: 20px 10px; color: #777; font-size: 10px; }
+.bottom-nav {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 10;
+  display: grid; grid-template-columns: repeat(3,1fr);
+  background: #111; border-top: 1px solid #3a301c;
+  padding: 9px 8px calc(9px + env(safe-area-inset-bottom));
+}
+.nav-btn {
+  border: 0; background: transparent; color: #888;
+  padding: 6px 3px; font-size: 11px; display: grid;
+  justify-items: center; gap: 5px;
+}
+.nav-btn .ico { font-size: 20px; }
+.nav-btn.active { color: var(--gold); }
+.hidden { display: none !important; }
+button:focus-visible, select:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+@media (min-width: 600px) {
+  header { padding-inline: max(20px, calc((100% - 688px)/2)); }
+  .hero h2 { font-size: 30px; }
+}
+</style>
+</head>
+
+<body>
+<header>
+  <div class="top">
+    <div class="brand">
+      <div class="logo">⚽</div>
+      <div>
+        <h1>GOALZONE <span>PRO</span></h1>
+        <small id="tagline">عالم كرة القدم بين يديك</small>
+      </div>
+    </div>
+    <select id="language" aria-label="Language">
+      <option value="ar">العربية</option>
+      <option value="fr">Français</option>
+      <option value="en">English</option>
+      <option value="es">Español</option>
+    </select>
+  </div>
+</header>
+
+<main>
+  <section id="homePage">
+    <div class="hero">
+      <div class="eyebrow" id="heroEyebrow">YOUR FOOTBALL HUB</div>
+      <h2 id="heroTitle">كل كرة. كل مباراة.<br><span class="gold">عالم واحد.</span></h2>
+      <p id="heroText">تابع مبارياتك المفضلة واستكشف ترتيب الفرق في مكان واحد.</p>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><strong id="matchCount">3</strong><span id="statMatches">مباريات</span></div>
+      <div class="stat"><strong>4</strong><span id="statLeagues">فرق في الترتيب</span></div>
+      <div class="stat"><strong id="favCount">0</strong><span id="statFav">المفضلة</span></div>
+    </div>
+
+    <div class="section-head">
+      <h2 id="matchesHeading">⚽ المباريات</h2>
+      <small id="demoLabel">بيانات تجريبية</small>
+    </div>
+
+    <div class="pills">
+      <button class="pill active" data-filter="all" id="filterAll">الكل</button>
+      <button class="pill" data-filter="live" id="filterLive">مباشر</button>
+      <button class="pill" data-filter="upcoming" id="filterUpcoming">قادمة</button>
+      <button class="pill" data-filter="finished" id="filterFinished">انتهت</button>
+    </div>
+
+    <div id="matchesList"></div>
+  </section>
+
+  <section id="standingsPage" class="hidden">
+    <div class="section-head">
+      <h2 id="standingsHeading">🏆 ترتيب الفرق</h2>
+      <small id="tableLeague">الدوري التجريبي</small>
+    </div>
+    <div class="panel table-wrap">
+      <table>
+        <thead><tr>
+          <th id="thTeam">الفريق</th>
+          <th id="thPlayed">لعب</th>
+          <th id="thWon">فاز</th>
+          <th id="thGD">+/-</th>
+          <th id="thPoints">نقاط</th>
+        </tr></thead>
+        <tbody id="standingsBody"></tbody>
+      </table>
+    </div>
+    <p id="tableNote" style="color:#888;font-size:11px;line-height:1.8;margin-top:12px;">ترتيب افتراضي لأغراض العرض، وليس ترتيباً حقيقياً مباشراً.</p>
+  </section>
+
+  <section id="favoritesPage" class="hidden">
+    <div class="section-head">
+      <h2 id="favoritesHeading">⭐ المباريات المفضلة</h2>
+      <small id="favSubtitle">المباريات المحفوظة</small>
+    </div>
+    <div id="favoritesList"></div>
+  </section>
+
+  <footer id="footerText">GOALZONE PRO · بيانات تجريبية وليست مباشرة</footer>
+</main>
+
+<nav class="bottom-nav">
+  <button class="nav-btn active" data-page="home">
+    <span class="ico">⚽</span><span id="navHome">المباريات</span>
+  </button>
+  <button class="nav-btn" data-page="standings">
+    <span class="ico">🏆</span><span id="navStandings">الترتيب</span>
+  </button>
+  <button class="nav-btn" data-page="favorites">
+    <span class="ico">⭐</span><span id="navFavorites">المفضلة</span>
+  </button>
+</nav>
+
+<script>
+(function () {
+"use strict";
+
+const translations = {
+ ar: {
+  tagline:"عالم كرة القدم بين يديك", eyebrow:"عالمك الكروي",
+  heroTitle:"كل كرة. كل مباراة.", heroText:"تابع مبارياتك المفضلة واستكشف ترتيب الفرق في مكان واحد.",
+  matches:"مباريات", leagues:"فرق في الترتيب", fav:"المفضلة",
+  matchHeading:"⚽ المباريات", demo:"بيانات تجريبية",
+  all:"الكل", live:"مباشر", upcoming:"قادمة", finished:"انتهت",
+  standings:"🏆 ترتيب الفرق", league:"الدوري التجريبي",
+  team:"الفريق", played:"لعب", won:"فاز", gd:"+/-", points:"نقاط",
+  tableNote:"ترتيب افتراضي لأغراض العرض، وليس ترتيباً حقيقياً مباشراً.",
+  favorites:"⭐ المباريات المفضلة", favSubtitle:"المباريات المحفوظة",
+  navHome:"المباريات", navStandings:"الترتيب", navFavorites:"المفضلة",
+  upcomingStatus:"قادمة", finishedStatus:"انتهت", liveStatus:"مباشر",
+  noFavorites:"مازال ما عندك حتى مباراة مفضلة", addFav:"ضغط على ⭐ فالمباراة باش تزيدها هنا.",
+  noMatches:"ما كايناش مباريات فهاد القسم.", kickOff:"موعد افتراضي",
+  footer:"GOALZONE PRO · بيانات تجريبية وليست مباشرة"
+ },
+ en: {
+  tagline:"Football at your fingertips", eyebrow:"YOUR FOOTBALL HUB",
+  heroTitle:"Every ball. Every match.", heroText:"Follow your favorite matches and explore team standings in one place.",
+  matches:"Matches", leagues:"Teams in table", fav:"Favorites",
+  matchHeading:"⚽ Matches", demo:"Demo data",
+  all:"All", live:"Live", upcoming:"Upcoming", finished:"Finished",
+  standings:"🏆 Team standings", league:"Demo league",
+  team:"Team", played:"P", won:"W", gd:"GD", points:"Pts",
+  tableNote:"Sample standings for demonstration only. Not live standings.",
+  favorites:"⭐ Favorite matches", favSubtitle:"Your saved matches",
+  navHome:"Matches", navStandings:"Standings", navFavorites:"Favorites",
+  upcomingStatus:"Upcoming", finishedStatus:"Finished", liveStatus:"Live",
+  noFavorites:"No favorite matches yet", addFav:"Tap ⭐ on a match to save it here.",
+  noMatches:"No matches in this section.", kickOff:"Demo schedule",
+  footer:"GOALZONE PRO · Demo data, not live"
+ },
+ fr: {
+  tagline:"Le football à portée de main", eyebrow:"VOTRE UNIVERS FOOTBALL",
+  heroTitle:"Chaque ballon. Chaque match.", heroText:"Suivez vos matchs favoris et consultez le classement au même endroit.",
+  matches:"Matchs", leagues:"Équipes classées", fav:"Favoris",
+  matchHeading:"⚽ Matchs", demo:"Données de démonstration",
+  all:"Tous", live:"En direct", upcoming:"À venir", finished:"Terminés",
+  standings:"🏆 Classement", league:"Ligue de démonstration",
+  team:"Équipe", played:"J", won:"V", gd:"DB", points:"Pts",
+  tableNote:"Classement fictif à titre de démonstration. Pas de données en direct.",
+  favorites:"⭐ Matchs favoris", favSubtitle:"Vos matchs enregistrés",
+  navHome:"Matchs", navStandings:"Classement", navFavorites:"Favoris",
+  upcomingStatus:"À venir", finishedStatus:"Terminé", liveStatus:"En direct",
+  noFavorites:"Aucun match favori pour le moment", addFav:"Appuyez sur ⭐ pour enregistrer un match ici.",
+  noMatches:"Aucun match dans cette catégorie.", kickOff:"Horaire fictif",
+  footer:"GOALZONE PRO · Données de démonstration, pas en direct"
+ },
+ es: {
+  tagline:"El fútbol al alcance de tu mano", eyebrow:"TU MUNDO DEL FÚTBOL",
+  heroTitle:"Cada balón. Cada partido.", heroText:"Sigue tus partidos favoritos y consulta la clasificación en un solo lugar.",
+  matches:"Partidos", leagues:"Equipos clasificados", fav:"Favoritos",
+  matchHeading:"⚽ Partidos", demo:"Datos de demostración",
+  all:"Todos", live:"En directo", upcoming:"Próximos", finished:"Finalizados",
+  standings:"🏆 Clasificación", league:"Liga de demostración",
+  team:"Equipo", played:"PJ", won:"G", gd:"DG", points:"Pts",
+  tableNote:"Clasificación ficticia para demostración. No son datos en directo.",
+  favorites:"⭐ Partidos favoritos", favSubtitle:"Tus partidos guardados",
+  navHome:"Partidos", navStandings:"Clasificación", navFavorites:"Favoritos",
+  upcomingStatus:"Próximo", finishedStatus:"Finalizado", liveStatus:"En directo",
+  noFavorites:"Todavía no tienes partidos favoritos", addFav:"Pulsa ⭐ en un partido para guardarlo aquí.",
+  noMatches:"No hay partidos en esta sección.", kickOff:"Horario ficticio",
+  footer:"GOALZONE PRO · Datos de demostración, no en directo"
+ }
+};
+
+const matches = [
+ {id:1, league:"Champions League · Demo", home:"Real Madrid", away:"Man City", homeIcon:"⚪", awayIcon:"🔵", hs:2, as:1, status:"finished", time:"20:00"},
+ {id:2, league:"La Liga · Demo", home:"Barcelona", away:"Atlético Madrid", homeIcon:"🔴", awayIcon:"🔴", hs:null, as:null, status:"upcoming", time:"21:00"},
+ {id:3, league:"Premier League · Demo", home:"Liverpool", away:"Arsenal", homeIcon:"🔴", awayIcon:"🔴", hs:null, as:null, status:"upcoming", time:"18:30"}
+];
+
+const standings = [
+ {name:"Real Madrid",icon:"⚪",p:10,w:8,gd:15,pts:24},
+ {name:"Barcelona",icon:"🔴",p:10,w:7,gd:12,pts:22},
+ {name:"Liverpool",icon:"🔴",p:10,w:6,gd:9,pts:20},
+ {name:"Arsenal",icon:"🔴",p:10,w:6,gd:7,pts:19}
+];
+
+let lang = localStorage.getItem("gz-language") || "ar";
+let filter = "all";
+let page = "home";
+let favorites = [];
+try { favorites = JSON.parse(localStorage.getItem("gz-favorites") || "[]"); }
+catch(e) { favorites = []; }
+
+const $ = id => document.getElementById(id);
+
+function t(key) { return translations[lang][key] || key; }
+
+function applyLanguage() {
+ document.documentElement.lang = lang;
+ document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
+ $("language").value = lang;
+
+ const map = {
+  tagline:"tagline", heroEyebrow:"eyebrow", heroText:"heroText",
+  statMatches:"matches", statLeagues:"leagues", statFav:"fav",
+  matchesHeading:"matchHeading", demoLabel:"demo",
+  filterAll:"all", filterLive:"live", filterUpcoming:"upcoming", filterFinished:"finished",
+  standingsHeading:"standings", tableLeague:"league",
+  thTeam:"team", thPlayed:"played", thWon:"won", thGD:"gd", thPoints:"points",
+  tableNote:"tableNote", favoritesHeading:"favorites", favSubtitle:"favSubtitle",
+  navHome:"navHome", navStandings:"navStandings", navFavorites:"navFavorites",
+  footerText:"footer"
+ };
+ Object.keys(map).forEach(id => $(id).textContent = t(map[id]));
+
+ $("heroTitle").innerHTML = lang === "ar"
+   ? 'كل كرة. كل مباراة.<br><span class="gold">عالم واحد.</span>'
+   : '<span class="gold">' + t("heroTitle") + '</span>';
+
+ renderMatches();
+ renderStandings();
+ renderFavorites();
+ updateStats();
+}
+
+function matchCard(m) {
+ const statusText = m.status === "finished" ? t("finishedStatus") :
+                    m.status === "live" ? t("liveStatus") : t("upcomingStatus");
+ const score = m.status === "finished"
+   ? m.hs + " - " + m.as
+   : "VS";
+ const when = m.status === "finished" ? t("finishedStatus") : t("kickOff") + " · " + m.time;
+ const saved = favorites.includes(m.id);
+
+ return `
+ <article class="match">
+  <div class="match-top">
+   <span class="league">${m.league}</span>
+   <span class="status">${statusText}</span>
+  </div>
+  <div class="teams">
+   <div class="team">
+    <div class="crest">${m.homeIcon}</div>
+    <div class="team-name">${m.home}</div>
+   </div>
+   <div class="score">${score}<small>${m.status === "finished" ? "FT" : " "}</small></div>
+   <div class="team">
+    <div class="crest">${m.awayIcon}</div>
+    <div class="team-name">${m.away}</div>
+   </div>
+  </div>
+  <div class="match-bottom">
+   <small>${when}</small>
+   <button class="fav-btn ${saved ? "saved" : ""}" data-fav="${m.id}" aria-label="Favorite">${saved ? "★" : "☆"}</button>
+  </div>
+ </article>`;
+}
+
+function renderMatches() {
+ const filtered = matches.filter(m => filter === "all" || m.status === filter);
+ $("matchesList").innerHTML = filtered.length
+   ? filtered.map(matchCard).join("")
+   : `<div class="empty"><div>⚽</div>${t("noMatches")}</div>`;
+}
+
+function renderStandings() {
+ $("standingsBody").innerHTML = standings.map((team,i) => `
+  <tr>
+   <td class="team-cell"><span class="rank">${i+1}</span>${team.icon} ${team.name}</td>
+   <td>${team.p}</td><td>${team.w}</td>
+   <td>${team.gd > 0 ? "+" : ""}${team.gd}</td>
+   <td class="points">${team.pts}</td>
+  </tr>`).join("");
+}
+
+function renderFavorites() {
+ const saved = matches.filter(m => favorites.includes(m.id));
+ $("favoritesList").innerHTML = saved.length
+   ? saved.map(matchCard).join("")
+   : `<div class="empty"><div>☆</div><strong>${t("noFavorites")}</strong><p>${t("addFav")}</p></div>`;
+}
+
+function updateStats() {
+ $("matchCount").textContent = matches.length;
+ $("favCount").textContent = favorites.length;
+}
+
+function setPage(next) {
+ page = next;
+ $("homePage").classList.toggle("hidden", page !== "home");
+ $("standingsPage").classList.toggle("hidden", page !== "standings");
+ $("favoritesPage").classList.toggle("hidden", page !== "favorites");
+ document.querySelectorAll("[data-page]").forEach(btn =>
+  btn.classList.toggle("active", btn.dataset.page === page)
+ );
+ window.scrollTo(0,0);
+}
+
+document.addEventListener("click", function(event) {
+ const nav = event.target.closest("[data-page]");
+ if (nav) {
+  setPage(nav.dataset.page);
+  return;
+ }
+
+ const filterBtn = event.target.closest("[data-filter]");
+ if (filterBtn) {
+  filter = filterBtn.dataset.filter;
+  document.querySelectorAll("[data-filter]").forEach(btn =>
+   btn.classList.toggle("active", btn === filterBtn)
+  );
+  renderMatches();
+  return;
+ }
+
+ const favBtn = event.target.closest("[data-fav]");
+ if (favBtn) {
+  const id = Number(favBtn.dataset.fav);
+  favorites = favorites.includes(id)
+    ? favorites.filter(x => x !== id)
+    : [...favorites, id];
+  localStorage.setItem("gz-favorites", JSON.stringify(favorites));
+  renderMatches();
+  renderFavorites();
+  updateStats();
+ }
+});
+
+$("language").addEventListener("change", function(event) {
+ lang = event.target.value;
+ localStorage.setItem("gz-language", lang);
+ applyLanguage();
+});
+
+applyLanguage();
+setPage("home");
+})();
+</script>
+</body>
+</html>
