@@ -3,470 +3,174 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#090909">
-<title>GoalZone Pro</title>
-
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#101510">
+<title>GoalZoneLive | Live Football</title>
 <style>
-:root {
-  --gold: #e6bd55;
-  --gold2: #b88a25;
-  --bg: #090909;
-  --panel: #151515;
-  --muted: #999;
-  --line: #292929;
-}
-* { box-sizing: border-box; }
-body {
-  margin: 0;
-  background: var(--bg);
-  color: #f7f7f7;
-  font-family: Arial, sans-serif;
-  padding-bottom: 85px;
-}
-button, select { font: inherit; }
-button { cursor: pointer; }
-header {
-  padding: 20px 16px 14px;
-  background: linear-gradient(135deg,#171717,#090909);
-  border-bottom: 1px solid #39301b;
-}
-.top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-}
-.brand { display: flex; align-items: center; gap: 10px; }
-.logo {
-  width: 43px; height: 43px; border-radius: 13px;
-  display: grid; place-items: center;
-  background: linear-gradient(135deg,#f5d77c,#a77a19);
-  color: #111; font-size: 23px;
-}
-.brand h1 { font-size: 19px; margin: 0; letter-spacing: .5px; }
-.brand h1 span { color: var(--gold); }
-.brand small { display: block; color: #999; font-size: 10px; margin-top: 4px; }
-#language {
-  background: #1b1b1b; color: var(--gold);
-  border: 1px solid #514323; border-radius: 8px;
-  padding: 9px 5px; max-width: 112px;
-}
-.hero {
-  padding: 23px 17px; margin: 18px 0 15px;
-  border: 1px solid #4a3a1a; border-radius: 16px;
-  background: radial-gradient(ellipse at top right,#382b12 0%,#17140e 40%,#121212 80%);
-}
-.hero .eyebrow { color: var(--gold); font-size: 11px; letter-spacing: 2px; }
-.hero h2 { font-size: 25px; margin: 12px 0 8px; line-height: 1.4; }
-.hero p { color: #bbb; font-size: 13px; line-height: 1.7; margin: 0; }
-.stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 9px; }
-.stat {
-  background: #151515; border: 1px solid var(--line);
-  border-radius: 11px; padding: 13px 5px; text-align: center;
-}
-.stat strong { display: block; color: var(--gold); font-size: 21px; }
-.stat span { display: block; color: #999; font-size: 11px; margin-top: 6px; }
-main { padding: 16px; max-width: 720px; margin: auto; }
-.section-head {
-  display: flex; justify-content: space-between;
-  align-items: center; gap: 8px; margin: 20px 0 13px;
-}
-.section-head h2 { margin: 0; font-size: 18px; }
-.section-head small { color: #999; font-size: 11px; }
-.gold { color: var(--gold); }
-.pills { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px; }
-.pill {
-  flex: 0 0 auto; border: 1px solid #333; background: #171717;
-  color: #aaa; border-radius: 8px; padding: 9px 14px; font-size: 12px;
-}
-.pill.active { background: var(--gold); border-color: var(--gold); color: #111; font-weight: bold; }
-.match {
-  margin-top: 12px; padding: 15px;
-  background: linear-gradient(145deg,#191919,#111);
-  border: 1px solid #2e2e2e; border-radius: 13px;
-}
-.match-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
-.league { color: #aaa; font-size: 11px; }
-.status { color: var(--gold); background: #332911; padding: 5px 8px; border-radius: 5px; font-size: 10px; }
-.teams { display: grid; grid-template-columns: 1fr 65px 1fr; align-items: center; gap: 8px; padding: 20px 0 15px; }
-.team { text-align: center; min-width: 0; }
-.crest {
-  width: 43px; height: 43px; margin: 0 auto 9px;
-  border: 1px solid #48402d; background: #242019; border-radius: 50%;
-  display: grid; place-items: center; font-size: 21px;
-}
-.team-name { font-size: 12px; line-height: 1.5; font-weight: bold; }
-.score { text-align: center; font-size: 22px; font-weight: bold; color: var(--gold); }
-.score small { display: block; font-size: 10px; color: #999; font-weight: normal; margin-top: 5px; }
-.match-bottom { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #292929; padding-top: 11px; gap: 8px; }
-.match-bottom small { color: #999; font-size: 10px; }
-.fav-btn { border: 0; background: transparent; color: #888; font-size: 20px; padding: 2px 5px; }
-.fav-btn.saved { color: var(--gold); }
-.panel {
-  background: #141414; border: 1px solid #2c2c2c;
-  border-radius: 12px; overflow: hidden; margin-top: 12px;
-}
-.table-wrap { overflow-x: auto; }
-table { border-collapse: collapse; width: 100%; min-width: 340px; text-align: center; font-size: 12px; }
-th { color: var(--gold); background: #201c13; font-weight: bold; }
-th, td { padding: 13px 8px; border-bottom: 1px solid #292929; }
-td:first-child, th:first-child { text-align: start; padding-inline-start: 13px; }
-tr:last-child td { border-bottom: 0; }
-.team-cell { font-weight: bold; white-space: nowrap; }
-.rank { color: #999; margin-inline-end: 8px; }
-.points { color: var(--gold); font-weight: bold; }
-.empty { text-align: center; padding: 35px 15px; color: #999; }
-.empty div { font-size: 35px; margin-bottom: 12px; }
-footer { text-align: center; padding: 20px 10px; color: #777; font-size: 10px; }
-.bottom-nav {
-  position: fixed; bottom: 0; left: 0; right: 0; z-index: 10;
-  display: grid; grid-template-columns: repeat(3,1fr);
-  background: #111; border-top: 1px solid #3a301c;
-  padding: 9px 8px calc(9px + env(safe-area-inset-bottom));
-}
-.nav-btn {
-  border: 0; background: transparent; color: #888;
-  padding: 6px 3px; font-size: 11px; display: grid;
-  justify-items: center; gap: 5px;
-}
-.nav-btn .ico { font-size: 20px; }
-.nav-btn.active { color: var(--gold); }
-.hidden { display: none !important; }
-button:focus-visible, select:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
-@media (min-width: 600px) {
-  header { padding-inline: max(20px, calc((100% - 688px)/2)); }
-  .hero h2 { font-size: 30px; }
-}
+:root{--bg:#0b0f0c;--panel:#151b16;--panel2:#1c241e;--gold:#e6bd57;--green:#52d273;--muted:#9ca79e;--line:#29332b}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:#f5f6f4;font-family:Arial,Tahoma,sans-serif;font-size:13px}
+button{font:inherit;cursor:pointer}
+header{height:62px;background:#111711;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 15px;position:sticky;top:0;z-index:5}
+.brand{font-size:19px;font-weight:800;letter-spacing:-.5px}
+.brand span{color:var(--gold)}
+.menu{background:var(--panel2);border:1px solid var(--line);color:white;border-radius:9px;font-size:23px;width:39px;height:37px}
+.live-badge{color:#ff6969;font-size:11px;font-weight:bold}
+.live-badge i{display:inline-block;width:7px;height:7px;border-radius:50%;background:#ff4545;margin-left:4px}
+.layout{max-width:850px;margin:auto;padding:14px 12px 80px}
+.hero{padding:19px 16px;border-radius:14px;background:linear-gradient(120deg,#263a27,#141d16 75%);border:1px solid #344b34;margin-bottom:14px}
+.hero small{color:var(--gold);font-size:11px}
+.hero h1{font-size:22px;margin:9px 0 5px}
+.hero p{font-size:12px;color:#bac4bb;margin:0;line-height:1.7}
+.tabs{display:flex;gap:7px;overflow-x:auto;margin:14px 0;padding-bottom:3px}
+.tab{white-space:nowrap;border:1px solid var(--line);background:var(--panel);color:#c8d0c9;padding:9px 14px;border-radius:9px;font-size:12px}
+.tab.active{background:var(--gold);border-color:var(--gold);color:#15170f;font-weight:bold}
+.section-title{display:flex;align-items:center;justify-content:space-between;margin:18px 2px 10px}
+.section-title h2{font-size:15px;margin:0}
+.section-title small{color:var(--muted);font-size:11px}
+.match{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:13px;margin-bottom:9px}
+.match-top{display:flex;justify-content:space-between;color:var(--muted);font-size:10px;margin-bottom:13px}
+.match-top .status{color:#ff6464;font-weight:bold}
+.teams{display:grid;grid-template-columns:1fr 65px 1fr;align-items:center;text-align:center;gap:5px}
+.team{font-size:12px;font-weight:bold;line-height:1.8}
+.crest{display:block;font-size:25px;margin-bottom:3px}
+.score{font-size:21px;font-weight:800;direction:ltr}
+.score small{display:block;color:var(--muted);font-size:10px;font-weight:normal;margin-top:4px}
+.match-foot{border-top:1px solid var(--line);margin-top:12px;padding-top:9px;display:flex;justify-content:space-between;color:var(--muted);font-size:10px}
+.match-foot button{border:0;background:transparent;color:var(--gold)}
+.league{background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden;margin-bottom:12px}
+.league-head{padding:12px;background:var(--panel2);font-weight:bold;display:flex;justify-content:space-between}
+table{width:100%;border-collapse:collapse;text-align:center;font-size:11px}
+th{color:var(--muted);font-weight:normal}
+td,th{padding:11px 5px;border-bottom:1px solid var(--line)}
+td:nth-child(2){text-align:right}
+.points{color:var(--gold);font-weight:bold}
+.note{color:var(--muted);font-size:10px;line-height:1.7;margin:8px 2px}
+.drawer{position:fixed;inset:0;background:#0009;z-index:10;display:none}
+.drawer.open{display:block}
+.drawer-panel{background:#121912;width:min(290px,82vw);height:100%;padding:20px;border-left:1px solid var(--line)}
+.drawer-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px}
+.close{background:none;border:0;color:white;font-size:24px}
+.drawer a{display:block;text-decoration:none;color:#eee;padding:14px 10px;border-bottom:1px solid var(--line);font-size:13px}
+.drawer a:hover{color:var(--gold)}
+.bottom{position:fixed;bottom:0;left:0;right:0;z-index:4;background:#111711;border-top:1px solid var(--line);display:flex;justify-content:space-around;padding:9px 4px calc(9px + env(safe-area-inset-bottom))}
+.bottom button{border:0;background:none;color:var(--muted);font-size:10px;display:flex;flex-direction:column;align-items:center;gap:4px}
+.bottom b{font-size:18px}
+.bottom button.active{color:var(--gold)}
+.page{display:none}.page.active{display:block}
+.empty{text-align:center;color:var(--muted);padding:35px 10px}
+@media(min-width:600px){.layout{padding-top:22px}.hero h1{font-size:26px}.match{padding:16px}.team{font-size:14px}}
 </style>
 </head>
-
 <body>
 <header>
-  <div class="top">
-    <div class="brand">
-      <div class="logo">⚽</div>
-      <div>
-        <h1>GOALZONE <span>PRO</span></h1>
-        <small id="tagline">عالم كرة القدم بين يديك</small>
-      </div>
-    </div>
-    <select id="language" aria-label="Language">
-      <option value="ar">العربية</option>
-      <option value="fr">Français</option>
-      <option value="en">English</option>
-      <option value="es">Español</option>
-    </select>
-  </div>
+<button class="menu" onclick="openMenu()" aria-label="القائمة">☰</button>
+<div class="brand"><span>GoalZone</span>Live</div>
+<div class="live-badge"><i></i> LIVE</div>
 </header>
 
-<main>
-  <section id="homePage">
-    <div class="hero">
-      <div class="eyebrow" id="heroEyebrow">YOUR FOOTBALL HUB</div>
-      <h2 id="heroTitle">كل كرة. كل مباراة.<br><span class="gold">عالم واحد.</span></h2>
-      <p id="heroText">تابع مبارياتك المفضلة واستكشف ترتيب الفرق في مكان واحد.</p>
-    </div>
+<div class="drawer" id="drawer" onclick="closeOutside(event)">
+<div class="drawer-panel">
+<div class="drawer-head"><div class="brand"><span>GoalZone</span>Live</div><button class="close" onclick="closeMenu()">×</button></div>
+<a href="#" onclick="showPage('home')">⚽ المباريات</a>
+<a href="#" onclick="showPage('live')">🔴 النتائج المباشرة</a>
+<a href="#" onclick="showPage('standings')">🏆 ترتيب الدوريات</a>
+<a href="#" onclick="showPage('favorites')">★ المفضلة</a>
+<div class="note">GoalZoneLive — عالم كرة القدم بين يديك</div>
+</div>
+</div>
 
-    <div class="stats">
-      <div class="stat"><strong id="matchCount">3</strong><span id="statMatches">مباريات</span></div>
-      <div class="stat"><strong>4</strong><span id="statLeagues">فرق في الترتيب</span></div>
-      <div class="stat"><strong id="favCount">0</strong><span id="statFav">المفضلة</span></div>
-    </div>
+<main class="layout">
+<section class="hero">
+<small>YOUR FOOTBALL CENTER</small>
+<h1>كرة القدم، في مكان واحد</h1>
+<p>تابع المباريات والنتائج وترتيب الفرق بواجهة سريعة وبسيطة.</p>
+</section>
 
-    <div class="section-head">
-      <h2 id="matchesHeading">⚽ المباريات</h2>
-      <small id="demoLabel">بيانات تجريبية</small>
-    </div>
+<div class="tabs">
+<button class="tab active" onclick="filterMatches('all',this)">الكل</button>
+<button class="tab" onclick="filterMatches('live',this)">🔴 مباشر</button>
+<button class="tab" onclick="filterMatches('upcoming',this)">القادمة</button>
+<button class="tab" onclick="showPage('standings')">الترتيب</button>
+</div>
 
-    <div class="pills">
-      <button class="pill active" data-filter="all" id="filterAll">الكل</button>
-      <button class="pill" data-filter="live" id="filterLive">مباشر</button>
-      <button class="pill" data-filter="upcoming" id="filterUpcoming">قادمة</button>
-      <button class="pill" data-filter="finished" id="filterFinished">انتهت</button>
-    </div>
+<section class="page active" id="home">
+<div class="section-title"><h2>⚽ المباريات</h2><small>مركز المباريات</small></div>
+<div id="matches"></div>
+<p class="note">تنبيه: المباريات والنتائج المعروضة حالياً تجريبية لتوضيح التصميم، وليست نتائج حية.</p>
+</section>
 
-    <div id="matchesList"></div>
-  </section>
+<section class="page" id="live">
+<div class="section-title"><h2>🔴 النتائج المباشرة</h2><small>Live Center</small></div>
+<div id="liveMatches"></div>
+<p class="note">النتائج المباشرة الحقيقية تحتاج ربط الموقع بواجهة بيانات كروية.</p>
+</section>
 
-  <section id="standingsPage" class="hidden">
-    <div class="section-head">
-      <h2 id="standingsHeading">🏆 ترتيب الفرق</h2>
-      <small id="tableLeague">الدوري التجريبي</small>
-    </div>
-    <div class="panel table-wrap">
-      <table>
-        <thead><tr>
-          <th id="thTeam">الفريق</th>
-          <th id="thPlayed">لعب</th>
-          <th id="thWon">فاز</th>
-          <th id="thGD">+/-</th>
-          <th id="thPoints">نقاط</th>
-        </tr></thead>
-        <tbody id="standingsBody"></tbody>
-      </table>
-    </div>
-    <p id="tableNote" style="color:#888;font-size:11px;line-height:1.8;margin-top:12px;">ترتيب افتراضي لأغراض العرض، وليس ترتيباً حقيقياً مباشراً.</p>
-  </section>
+<section class="page" id="standings">
+<div class="section-title"><h2>🏆 ترتيب الفرق</h2><small>بيانات تجريبية</small></div>
+<div class="league">
+<div class="league-head"><span>🇪🇸 الدوري الإسباني</span><span>2026/27</span></div>
+<table><thead><tr><th>#</th><th>الفريق</th><th>لعب</th><th>فارق</th><th>نقاط</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>🔵 برشلونة</td><td>8</td><td>+14</td><td class="points">21</td></tr>
+<tr><td>2</td><td>⚪ ريال مدريد</td><td>8</td><td>+12</td><td class="points">19</td></tr>
+<tr><td>3</td><td>🔴 أتلتيكو مدريد</td><td>8</td><td>+7</td><td class="points">17</td></tr>
+</tbody></table></div>
+<div class="league">
+<div class="league-head"><span>🏴 الدوري الإنجليزي</span><span>2026/27</span></div>
+<table><thead><tr><th>#</th><th>الفريق</th><th>لعب</th><th>فارق</th><th>نقاط</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>🔴 أرسنال</td><td>8</td><td>+13</td><td class="points">20</td></tr>
+<tr><td>2</td><td>🔵 مانشستر سيتي</td><td>8</td><td>+11</td><td class="points">19</td></tr>
+<tr><td>3</td><td>🔴 ليفربول</td><td>8</td><td>+8</td><td class="points">18</td></tr>
+</tbody></table></div>
+<p class="note">الترتيب أعلاه مثال للتصميم فقط، وليس ترتيباً رسمياً محدثاً.</p>
+</section>
 
-  <section id="favoritesPage" class="hidden">
-    <div class="section-head">
-      <h2 id="favoritesHeading">⭐ المباريات المفضلة</h2>
-      <small id="favSubtitle">المباريات المحفوظة</small>
-    </div>
-    <div id="favoritesList"></div>
-  </section>
-
-  <footer id="footerText">GOALZONE PRO · بيانات تجريبية وليست مباشرة</footer>
+<section class="page" id="favorites">
+<div class="section-title"><h2>★ المفضلة</h2></div>
+<div id="favoriteMatches" class="empty">ما زال ما زدتي حتى مباراة للمفضلة. ضغط على ☆ فشي مباراة.</div>
+</section>
 </main>
 
-<nav class="bottom-nav">
-  <button class="nav-btn active" data-page="home">
-    <span class="ico">⚽</span><span id="navHome">المباريات</span>
-  </button>
-  <button class="nav-btn" data-page="standings">
-    <span class="ico">🏆</span><span id="navStandings">الترتيب</span>
-  </button>
-  <button class="nav-btn" data-page="favorites">
-    <span class="ico">⭐</span><span id="navFavorites">المفضلة</span>
-  </button>
+<nav class="bottom">
+<button class="active" onclick="showPage('home',this)"><b>⚽</b>المباريات</button>
+<button onclick="showPage('live',this)"><b>🔴</b>مباشر</button>
+<button onclick="showPage('standings',this)"><b>🏆</b>الترتيب</button>
+<button onclick="showPage('favorites',this)"><b>★</b>المفضلة</button>
 </nav>
 
 <script>
-(function () {
-"use strict";
-
-const translations = {
- ar: {
-  tagline:"عالم كرة القدم بين يديك", eyebrow:"عالمك الكروي",
-  heroTitle:"كل كرة. كل مباراة.", heroText:"تابع مبارياتك المفضلة واستكشف ترتيب الفرق في مكان واحد.",
-  matches:"مباريات", leagues:"فرق في الترتيب", fav:"المفضلة",
-  matchHeading:"⚽ المباريات", demo:"بيانات تجريبية",
-  all:"الكل", live:"مباشر", upcoming:"قادمة", finished:"انتهت",
-  standings:"🏆 ترتيب الفرق", league:"الدوري التجريبي",
-  team:"الفريق", played:"لعب", won:"فاز", gd:"+/-", points:"نقاط",
-  tableNote:"ترتيب افتراضي لأغراض العرض، وليس ترتيباً حقيقياً مباشراً.",
-  favorites:"⭐ المباريات المفضلة", favSubtitle:"المباريات المحفوظة",
-  navHome:"المباريات", navStandings:"الترتيب", navFavorites:"المفضلة",
-  upcomingStatus:"قادمة", finishedStatus:"انتهت", liveStatus:"مباشر",
-  noFavorites:"مازال ما عندك حتى مباراة مفضلة", addFav:"ضغط على ⭐ فالمباراة باش تزيدها هنا.",
-  noMatches:"ما كايناش مباريات فهاد القسم.", kickOff:"موعد افتراضي",
-  footer:"GOALZONE PRO · بيانات تجريبية وليست مباشرة"
- },
- en: {
-  tagline:"Football at your fingertips", eyebrow:"YOUR FOOTBALL HUB",
-  heroTitle:"Every ball. Every match.", heroText:"Follow your favorite matches and explore team standings in one place.",
-  matches:"Matches", leagues:"Teams in table", fav:"Favorites",
-  matchHeading:"⚽ Matches", demo:"Demo data",
-  all:"All", live:"Live", upcoming:"Upcoming", finished:"Finished",
-  standings:"🏆 Team standings", league:"Demo league",
-  team:"Team", played:"P", won:"W", gd:"GD", points:"Pts",
-  tableNote:"Sample standings for demonstration only. Not live standings.",
-  favorites:"⭐ Favorite matches", favSubtitle:"Your saved matches",
-  navHome:"Matches", navStandings:"Standings", navFavorites:"Favorites",
-  upcomingStatus:"Upcoming", finishedStatus:"Finished", liveStatus:"Live",
-  noFavorites:"No favorite matches yet", addFav:"Tap ⭐ on a match to save it here.",
-  noMatches:"No matches in this section.", kickOff:"Demo schedule",
-  footer:"GOALZONE PRO · Demo data, not live"
- },
- fr: {
-  tagline:"Le football à portée de main", eyebrow:"VOTRE UNIVERS FOOTBALL",
-  heroTitle:"Chaque ballon. Chaque match.", heroText:"Suivez vos matchs favoris et consultez le classement au même endroit.",
-  matches:"Matchs", leagues:"Équipes classées", fav:"Favoris",
-  matchHeading:"⚽ Matchs", demo:"Données de démonstration",
-  all:"Tous", live:"En direct", upcoming:"À venir", finished:"Terminés",
-  standings:"🏆 Classement", league:"Ligue de démonstration",
-  team:"Équipe", played:"J", won:"V", gd:"DB", points:"Pts",
-  tableNote:"Classement fictif à titre de démonstration. Pas de données en direct.",
-  favorites:"⭐ Matchs favoris", favSubtitle:"Vos matchs enregistrés",
-  navHome:"Matchs", navStandings:"Classement", navFavorites:"Favoris",
-  upcomingStatus:"À venir", finishedStatus:"Terminé", liveStatus:"En direct",
-  noFavorites:"Aucun match favori pour le moment", addFav:"Appuyez sur ⭐ pour enregistrer un match ici.",
-  noMatches:"Aucun match dans cette catégorie.", kickOff:"Horaire fictif",
-  footer:"GOALZONE PRO · Données de démonstration, pas en direct"
- },
- es: {
-  tagline:"El fútbol al alcance de tu mano", eyebrow:"TU MUNDO DEL FÚTBOL",
-  heroTitle:"Cada balón. Cada partido.", heroText:"Sigue tus partidos favoritos y consulta la clasificación en un solo lugar.",
-  matches:"Partidos", leagues:"Equipos clasificados", fav:"Favoritos",
-  matchHeading:"⚽ Partidos", demo:"Datos de demostración",
-  all:"Todos", live:"En directo", upcoming:"Próximos", finished:"Finalizados",
-  standings:"🏆 Clasificación", league:"Liga de demostración",
-  team:"Equipo", played:"PJ", won:"G", gd:"DG", points:"Pts",
-  tableNote:"Clasificación ficticia para demostración. No son datos en directo.",
-  favorites:"⭐ Partidos favoritos", favSubtitle:"Tus partidos guardados",
-  navHome:"Partidos", navStandings:"Clasificación", navFavorites:"Favoritos",
-  upcomingStatus:"Próximo", finishedStatus:"Finalizado", liveStatus:"En directo",
-  noFavorites:"Todavía no tienes partidos favoritos", addFav:"Pulsa ⭐ en un partido para guardarlo aquí.",
-  noMatches:"No hay partidos en esta sección.", kickOff:"Horario ficticio",
-  footer:"GOALZONE PRO · Datos de demostración, no en directo"
- }
-};
-
-const matches = [
- {id:1, league:"Champions League · Demo", home:"Real Madrid", away:"Man City", homeIcon:"⚪", awayIcon:"🔵", hs:2, as:1, status:"finished", time:"20:00"},
- {id:2, league:"La Liga · Demo", home:"Barcelona", away:"Atlético Madrid", homeIcon:"🔴", awayIcon:"🔴", hs:null, as:null, status:"upcoming", time:"21:00"},
- {id:3, league:"Premier League · Demo", home:"Liverpool", away:"Arsenal", homeIcon:"🔴", awayIcon:"🔴", hs:null, as:null, status:"upcoming", time:"18:30"}
+const games=[
+{id:1,league:"الدوري الإسباني",home:"ريال مدريد",away:"برشلونة",h:"⚪",a:"🔵",score:"2 - 1",minute:"68′",status:"live"},
+{id:2,league:"الدوري الإنجليزي",home:"أرسنال",away:"ليفربول",h:"🔴",a:"🔴",score:"1 - 1",minute:"52′",status:"live"},
+{id:3,league:"الدوري الإيطالي",home:"ميلان",away:"إنتر ميلان",h:"🔴⚫",a:"🔵⚫",score:"—",minute:"21:00",status:"upcoming"},
+{id:4,league:"الدوري الفرنسي",home:"باريس سان جيرمان",away:"مارسيليا",h:"🔵",a:"⚪",score:"—",minute:"غداً",status:"upcoming"}
 ];
-
-const standings = [
- {name:"Real Madrid",icon:"⚪",p:10,w:8,gd:15,pts:24},
- {name:"Barcelona",icon:"🔴",p:10,w:7,gd:12,pts:22},
- {name:"Liverpool",icon:"🔴",p:10,w:6,gd:9,pts:20},
- {name:"Arsenal",icon:"🔴",p:10,w:6,gd:7,pts:19}
-];
-
-let lang = localStorage.getItem("gz-language") || "ar";
-let filter = "all";
-let page = "home";
-let favorites = [];
-try { favorites = JSON.parse(localStorage.getItem("gz-favorites") || "[]"); }
-catch(e) { favorites = []; }
-
-const $ = id => document.getElementById(id);
-
-function t(key) { return translations[lang][key] || key; }
-
-function applyLanguage() {
- document.documentElement.lang = lang;
- document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
- $("language").value = lang;
-
- const map = {
-  tagline:"tagline", heroEyebrow:"eyebrow", heroText:"heroText",
-  statMatches:"matches", statLeagues:"leagues", statFav:"fav",
-  matchesHeading:"matchHeading", demoLabel:"demo",
-  filterAll:"all", filterLive:"live", filterUpcoming:"upcoming", filterFinished:"finished",
-  standingsHeading:"standings", tableLeague:"league",
-  thTeam:"team", thPlayed:"played", thWon:"won", thGD:"gd", thPoints:"points",
-  tableNote:"tableNote", favoritesHeading:"favorites", favSubtitle:"favSubtitle",
-  navHome:"navHome", navStandings:"navStandings", navFavorites:"navFavorites",
-  footerText:"footer"
- };
- Object.keys(map).forEach(id => $(id).textContent = t(map[id]));
-
- $("heroTitle").innerHTML = lang === "ar"
-   ? 'كل كرة. كل مباراة.<br><span class="gold">عالم واحد.</span>'
-   : '<span class="gold">' + t("heroTitle") + '</span>';
-
- renderMatches();
- renderStandings();
- renderFavorites();
- updateStats();
+let filter="all",favorites=new Set();
+function card(g){
+return `<article class="match"><div class="match-top"><span>${g.league}</span><span class="${g.status==='live'?'status':''}">${g.status==='live'?'● مباشر':'مباراة قادمة'}</span></div><div class="teams"><div class="team"><span class="crest">${g.h}</span>${g.home}</div><div class="score">${g.score}<small>${g.status==='live'?g.minute:g.minute}</small></div><div class="team"><span class="crest">${g.a}</span>${g.away}</div></div><div class="match-foot"><span>${g.status==='live'?'حالة المباراة: مباشر':'موعد المباراة'}</span><button onclick="toggleFav(${g.id})">${favorites.has(g.id)?'★':'☆'} المفضلة</button></div></article>`;
 }
-
-function matchCard(m) {
- const statusText = m.status === "finished" ? t("finishedStatus") :
-                    m.status === "live" ? t("liveStatus") : t("upcomingStatus");
- const score = m.status === "finished"
-   ? m.hs + " - " + m.as
-   : "VS";
- const when = m.status === "finished" ? t("finishedStatus") : t("kickOff") + " · " + m.time;
- const saved = favorites.includes(m.id);
-
- return `
- <article class="match">
-  <div class="match-top">
-   <span class="league">${m.league}</span>
-   <span class="status">${statusText}</span>
-  </div>
-  <div class="teams">
-   <div class="team">
-    <div class="crest">${m.homeIcon}</div>
-    <div class="team-name">${m.home}</div>
-   </div>
-   <div class="score">${score}<small>${m.status === "finished" ? "FT" : " "}</small></div>
-   <div class="team">
-    <div class="crest">${m.awayIcon}</div>
-    <div class="team-name">${m.away}</div>
-   </div>
-  </div>
-  <div class="match-bottom">
-   <small>${when}</small>
-   <button class="fav-btn ${saved ? "saved" : ""}" data-fav="${m.id}" aria-label="Favorite">${saved ? "★" : "☆"}</button>
-  </div>
- </article>`;
+function render(){
+const list=games.filter(g=>filter==='all'||g.status===filter);
+document.getElementById('matches').innerHTML=list.map(card).join('');
+document.getElementById('liveMatches').innerHTML=games.filter(g=>g.status==='live').map(card).join('')||'<div class="empty">ما كايناش مباريات مباشرة دابا.</div>';
+const fav=games.filter(g=>favorites.has(g.id));
+document.getElementById('favoriteMatches').innerHTML=fav.length?fav.map(card).join(''):'<div class="empty">ما زال ما زدتي حتى مباراة للمفضلة. ضغط على ☆ فشي مباراة.</div>';
 }
-
-function renderMatches() {
- const filtered = matches.filter(m => filter === "all" || m.status === filter);
- $("matchesList").innerHTML = filtered.length
-   ? filtered.map(matchCard).join("")
-   : `<div class="empty"><div>⚽</div>${t("noMatches")}</div>`;
+function filterMatches(f,btn){filter=f;document.querySelectorAll('.tabs .tab').forEach(b=>b.classList.remove('active'));btn.classList.add('active');showPage('home');render();}
+function showPage(id,btn){
+document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+document.getElementById(id).classList.add('active');
+document.querySelectorAll('.bottom button').forEach(b=>b.classList.remove('active'));
+if(btn)btn.classList.add('active');
+closeMenu();window.scrollTo({top:0,behavior:'smooth'});
 }
-
-function renderStandings() {
- $("standingsBody").innerHTML = standings.map((team,i) => `
-  <tr>
-   <td class="team-cell"><span class="rank">${i+1}</span>${team.icon} ${team.name}</td>
-   <td>${team.p}</td><td>${team.w}</td>
-   <td>${team.gd > 0 ? "+" : ""}${team.gd}</td>
-   <td class="points">${team.pts}</td>
-  </tr>`).join("");
-}
-
-function renderFavorites() {
- const saved = matches.filter(m => favorites.includes(m.id));
- $("favoritesList").innerHTML = saved.length
-   ? saved.map(matchCard).join("")
-   : `<div class="empty"><div>☆</div><strong>${t("noFavorites")}</strong><p>${t("addFav")}</p></div>`;
-}
-
-function updateStats() {
- $("matchCount").textContent = matches.length;
- $("favCount").textContent = favorites.length;
-}
-
-function setPage(next) {
- page = next;
- $("homePage").classList.toggle("hidden", page !== "home");
- $("standingsPage").classList.toggle("hidden", page !== "standings");
- $("favoritesPage").classList.toggle("hidden", page !== "favorites");
- document.querySelectorAll("[data-page]").forEach(btn =>
-  btn.classList.toggle("active", btn.dataset.page === page)
- );
- window.scrollTo(0,0);
-}
-
-document.addEventListener("click", function(event) {
- const nav = event.target.closest("[data-page]");
- if (nav) {
-  setPage(nav.dataset.page);
-  return;
- }
-
- const filterBtn = event.target.closest("[data-filter]");
- if (filterBtn) {
-  filter = filterBtn.dataset.filter;
-  document.querySelectorAll("[data-filter]").forEach(btn =>
-   btn.classList.toggle("active", btn === filterBtn)
-  );
-  renderMatches();
-  return;
- }
-
- const favBtn = event.target.closest("[data-fav]");
- if (favBtn) {
-  const id = Number(favBtn.dataset.fav);
-  favorites = favorites.includes(id)
-    ? favorites.filter(x => x !== id)
-    : [...favorites, id];
-  localStorage.setItem("gz-favorites", JSON.stringify(favorites));
-  renderMatches();
-  renderFavorites();
-  updateStats();
- }
-});
-
-$("language").addEventListener("change", function(event) {
- lang = event.target.value;
- localStorage.setItem("gz-language", lang);
- applyLanguage();
-});
-
-applyLanguage();
-setPage("home");
-})();
+function openMenu(){document.getElementById('drawer').classList.add('open')}
+function closeMenu(){document.getElementById('drawer').classList.remove('open')}
+function closeOutside(e){if(e.target.id==='drawer')closeMenu()}
+function toggleFav(id){favorites.has(id)?favorites.delete(id):favorites.add(id);render();}
+render();
 </script>
 </body>
 </html>
