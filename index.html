@@ -44,7 +44,7 @@ table{width:100%;border-collapse:collapse;text-align:center;font-size:10px}th{co
 </style>
 </head>
 <body>
-<header><button class="menu" onclick="openMenu()" aria-label="القائمة">☰</button><div class="brand"><span>GoalZone</span>Live</div><div class="live-badge"><i></i> LIVE</div></header>
+<header><button class="menu" onclick="openMenu()" aria-label="القائمة">☰</button><div class="brand"><span>GoalZone</span>Live</div><div style="display:flex;align-items:center;gap:8px"><select id="languageSelect" onchange="setLanguage(this.value)" style="background:#202920;color:#fff;border:1px solid #344234;border-radius:6px;padding:5px;font-size:10px"><option value="ar">العربية</option><option value="fr">Français</option><option value="en">English</option><option value="es">Español</option></select><div class="live-badge"><i></i> LIVE</div></div></header>
 <div class="drawer" id="drawer" onclick="closeOutside(event)"><div class="drawer-panel"><div class="drawer-head"><div class="brand"><span>GoalZone</span>Live</div><button class="close" onclick="closeMenu()">×</button></div><a href="#" onclick="showPage('home')">⚽ المباريات</a><a href="#" onclick="showPage('live')">🔴 النتائج المباشرة</a><a href="#" onclick="showPage('standings')">🏆 ترتيب الدوريات</a><a href="#" onclick="showPage('favorites')">★ المفضلة</a><div class="note">GoalZoneLive — عالم كرة القدم بين يديك</div></div></div>
 <main class="layout">
 <section class="hero"><small>YOUR FOOTBALL CENTER</small><h1>كرة القدم، في مكان واحد</h1><p>تابع المباريات والنتائج وترتيب الفرق بواجهة سريعة وبسيطة.</p></section>
@@ -64,7 +64,25 @@ const games=[
 {id:3,league:"الدوري الإيطالي",home:"ميلان",away:"إنتر ميلان",h:"🔴⚫",a:"🔵⚫",homeGoals:null,awayGoals:null,score:"—",minute:"21:00",status:"upcoming",odds:["2.90","3.00","2.40"]},
 {id:4,league:"الدوري الفرنسي",home:"باريس سان جيرمان",away:"مارسيليا",h:"🔵",a:"⚪",homeGoals:null,awayGoals:null,score:"—",minute:"غداً",status:"upcoming",odds:["1.65","3.80","4.50"]}
 ];
-let filter="all",favorites=new Set();
+
+const langs={
+ar:["كرة القدم، في مكان واحد","تابع المباريات والنتائج وترتيب الفرق بواجهة سريعة وبسيطة.","⚽ المباريات","🔴 النتائج المباشرة","🏆 ترتيب الدوريات","★ المفضلة","الكل","🔴 مباشر","القادمة","الترتيب","مركز المباريات","تنبيه: المباريات والنتائج وCotes المعروضة تجريبية وليست بيانات حقيقية أو مباشرة.","النتائج المباشرة الحقيقية تحتاج ربط الموقع بواجهة بيانات كروية.","Cotes تجريبية للتصميم فقط","المفضلة"],
+fr:["Le football, au même endroit","Suivez les matchs, les scores et les classements dans une interface rapide et simple.","⚽ Matchs","🔴 Scores en direct","🏆 Classements","★ Favoris","Tous","🔴 En direct","À venir","Classement","Centre des matchs","Attention : les matchs, scores et cotes affichés sont des exemples, pas des données en direct.","Les vrais scores en direct nécessitent une API de football.","Cotes fictives pour la démo","Favoris"],
+en:["Football, all in one place","Follow matches, scores and team standings in a fast, simple interface.","⚽ Matches","🔴 Live scores","🏆 League tables","★ Favorites","All","🔴 Live","Upcoming","Standings","Match center","Note: matches, scores and odds shown are examples, not real or live data.","Real live scores require a football data API.","Demo odds for design only","Favorites"],
+es:["Todo el fútbol en un solo lugar","Sigue partidos, resultados y clasificaciones con una interfaz rápida y sencilla.","⚽ Partidos","🔴 En directo","🏆 Clasificaciones","★ Favoritos","Todos","🔴 En directo","Próximos","Clasificación","Centro de partidos","Aviso: partidos, resultados y cuotas de ejemplo; no son datos reales ni en directo.","Los resultados reales requieren una API de fútbol.","Cuotas de ejemplo solo para diseño","Favoritos"]};
+function setLanguage(lang){
+ const t=langs[lang]||langs.ar;document.documentElement.lang=lang;document.documentElement.dir=lang==="ar"?"rtl":"ltr";
+ const links=document.querySelectorAll(".drawer a");if(links.length>=4){links[0].textContent=t[2];links[1].textContent=t[3];links[2].textContent=t[4];links[3].textContent=t[5];}
+ const hero=document.querySelector(".hero");if(hero){hero.querySelector("h1").textContent=t[0];hero.querySelector("p").textContent=t[1];}
+ const tabs=document.querySelectorAll(".tabs .tab");if(tabs.length>=4){tabs[0].textContent=t[6];tabs[1].textContent=t[7];tabs[2].textContent=t[8];tabs[3].textContent=t[9];}
+ const titles=document.querySelectorAll(".section-title h2");if(titles.length>=3){titles[0].textContent=t[2];titles[1].textContent=t[3];titles[2].textContent=t[4];}
+ const smalls=document.querySelectorAll(".section-title small");if(smalls.length)smalls[0].textContent=t[10];
+ const notes=document.querySelectorAll(".note");if(notes.length>1)notes[1].textContent=t[11];if(notes.length>2)notes[2].textContent=t[12];
+ const odds=document.querySelectorAll(".odds-caption");odds.forEach(x=>x.textContent=t[13]);
+ const bottoms=document.querySelectorAll(".bottom button");if(bottoms.length>=4){bottoms[0].lastChild.textContent=t[2].replace("⚽ ","");bottoms[1].lastChild.textContent=t[3].replace("🔴 ","");bottoms[2].lastChild.textContent=t[4].replace("🏆 ","");bottoms[3].lastChild.textContent=t[14].replace("★ ","");}
+ render();
+}
+\nlet filter="all",favorites=new Set();
 function card(g){
 let lead=g.status!=="live"?"بانتظار البداية":g.homeGoals>g.awayGoals?`الأفضلية: ${g.home}`:g.awayGoals>g.homeGoals?`الأفضلية: ${g.away}`:"تعادل — لا أفضلية";
 let left=g.status!=="live"?50:g.homeGoals>g.awayGoals?68:g.awayGoals>g.homeGoals?32:50;
@@ -76,4 +94,5 @@ function showPage(id,btn){document.querySelectorAll('.page').forEach(p=>p.classL
 function openMenu(){document.getElementById('drawer').classList.add('open')}function closeMenu(){document.getElementById('drawer').classList.remove('open')}function closeOutside(e){if(e.target.id==='drawer')closeMenu()}function toggleFav(id){favorites.has(id)?favorites.delete(id):favorites.add(id);render()}render();
 </script>
 </body>
-</html>
+  </html>
+  
